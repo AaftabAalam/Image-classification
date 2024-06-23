@@ -1,0 +1,7 @@
+joblib
+streamlit
+tensorflow
+keras
+numpy
+Pillow
+requests
