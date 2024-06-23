@@ -1,20 +1,18 @@
-import joblib
 import streamlit as st
 import tensorflow as tf
-from tensorflow import keras
-from tensorflow.keras.applications.vgg16 import preprocess_input, decode_predictions
+from tensorflow.keras.applications.vgg16 import VGG16, preprocess_input, decode_predictions
 from tensorflow.keras.preprocessing.image import img_to_array, load_img
 from PIL import Image
 import numpy as np
 import io 
 import requests
 
+# Load the VGG-16 model
 try:
-    model = joblib.load('vgg16.joblib')
+    model = VGG16(weights='imagenet')
 except Exception as e:
-    st.error(f"Error :{e},while loading the model")
+    st.error(f"Error: {e} while loading the model")
     st.stop()
-
 
 # Fetch the labels
 labels_url = 'https://storage.googleapis.com/download.tensorflow.org/data/imagenet_class_index.json'
@@ -36,7 +34,7 @@ def load_and_preprocess(image):
 # Streamlit application process
 st.title("Let's Classify Some Images")
 
-uploaded_file = st.file_uploader('Choose an image you want to classify under a category', type=['jpg', 'jpeg', 'png','webp'])
+uploaded_file = st.file_uploader('Choose an image you want to classify under a category', type=['jpg', 'jpeg', 'png', 'webp'])
 
 if uploaded_file is not None:
     try:
@@ -53,7 +51,6 @@ if uploaded_file is not None:
             
             for id, name, score in decoded_pred[0]:
                 st.write(f'Your image belongs to ›››››› {name}:{score*100:.2f}')
-                #st.write(f"{name}:{score*100:.2f}%")
         else:
             st.error("Failed to preprocess the image.")
     except Exception as e:
