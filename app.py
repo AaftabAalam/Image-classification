@@ -50,7 +50,8 @@ if uploaded_file is not None:
             decoded_pred = decode_predictions(predictions, top=1)
             
             for id, name, score in decoded_pred[0]:
-                st.write(f'Your image belongs to ›››››› {name}:{score*100:.2f}')
+                st.write(f'Your image belongs to ›››››› {name}')
+                st.write(f"It's probability is : {score*100:.2f}%")
         else:
             st.error("Failed to preprocess the image.")
     except Exception as e:
