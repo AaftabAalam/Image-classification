@@ -22,7 +22,7 @@ target_labels = [target_info[str(i)][1] for i in range(len(target_info))]
 
 def load_and_preprocess(image):
     try:
-        img = image.resize((224, 224))  # Resize the image to the target size
+        img = image.resize([224,224])  # Resize the image to the target size
         img_arr = img_to_array(img)  # Convert the image to an array
         img_arr = np.expand_dims(img_arr, axis=0)  # Add a batch dimension
         img_arr = preprocess_input(img_arr)  # Preprocess the image for the model
